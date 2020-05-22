@@ -13,6 +13,7 @@ The main entrypoints are the `subscribe` and `respond` functions.
 -}
 
 import Task exposing (Task)
+import Bytes exposing (Bytes)
 
 
 {-| HttpRequest models a http request. Use the `requestId` along with the `respond` function in this module to respond to a specific http request.
@@ -22,7 +23,7 @@ type alias HttpRequest =
     , host : String -- example.com, without port number
     , path : String -- /search?q=elm#results
     , headers : List ( String, String ) -- TODO: Dict String (List String)? -- TODO: normalize header names
-    , body : String -- TODO: Bytes
+    , body : Bytes
     , requestId : HttpRequestId
     }
 
@@ -32,7 +33,7 @@ type alias HttpRequest =
 type alias HttpResponse =
     { status : Int
     , headers : List ( String, String )
-    , body : String -- TODO: Bytes
+    , body : Bytes
     , requestId : HttpRequestId
     }
 
