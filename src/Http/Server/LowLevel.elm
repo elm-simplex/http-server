@@ -1,4 +1,4 @@
-effect module Http.Server.LowLevel where { command = MyCmd, subscription = MySub } exposing (subscribe, respond, HttpRequest, HttpResponse, HttpRequestId)
+effect module Http.Server.LowLevel where { command = MyCmd, subscription = MySub } exposing (subscribe, respond, HttpRequest, HttpResponse, HttpRequestId, HttpMethod(..))
 
 {-| Http.Server.LowLevel is a low-level api for a web server. It's not intended to be used directly by developers, but through other libraries.
 
@@ -16,10 +16,22 @@ import Task exposing (Task)
 import Bytes exposing (Bytes)
 
 
+type HttpMethod
+  = Get
+  | Head
+  | Post
+  | Put
+  | Delete
+  | Connect
+  | Options
+  | Trace
+  | Patch
+
+
 {-| HttpRequest models a http request. Use the `requestId` along with the `respond` function in this module to respond to a specific http request.
 -}
 type alias HttpRequest =
-    { method : String -- GET, POST, ...
+    { method : HttpMethod
     , host : String -- example.com, without port number
     , path : String -- /search?q=elm#results
     , headers : List ( String, String ) -- TODO: Dict String (List String)? -- TODO: normalize header names
